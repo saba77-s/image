@@ -1,0 +1,59 @@
+#include "image2.hpp"
+#include <stdio.h>
+#include <stdlib.h>
+using namespace std;
+Image::Image ()
+{
+	pixels=NULL;
+	rows=0;
+	cols=0;
+}
+Image::~Image()
+{
+	if (pixels !=NULL)
+		delete[] pixels;
+	rows=0;
+	cols=0;
+}
+int Image::resize(unsigned int width,unsigned height,uint8_t fillcolor)
+{
+	if (pixels !=NULL)
+		delete[] pixels;
+	pixels= new uint8_t[width*height];
+	if (pixels != NULL)
+	{
+		int i=width*height;
+		while (i>0)
+		{
+			pixels[i]=fillcolor;
+			i--;
+		}
+		rows=height;
+		cols=height;
+		return 0;
+	}
+	return 1;
+}
+int Image::set_pixel(unsigned int x, unsigned int y, uint8_t color){
+        if (y>=rows || x>=cols)
+                return 1;
+        pixels[y*cols+x] = color;
+        return 0;
+}
+/* Gets the color of the pixel at (x,y) and stores at the address pointed to 
+ by colorp. Returns 0 on success, else a non-zero error code. */
+int Image::get_pixel (unsigned int x, unsigned int y,uint8_t* colorp)
+{
+        if (y>=rows || x>=cols)
+                return 1;
+        *colorp=pixels[y*cols+x];
+        return 0;
+}
+ /* Saves the image in the file filename. In a format that can be loaded by load().  Returns 0 on success, else a non-zero error
+ code. */
+int Image::save (const char* filename){
+	if (filename == NULL)
+		return 1;
+	fstream f;
+	f.open(filname.
+
